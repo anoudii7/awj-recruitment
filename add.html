@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مرشح</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+</head>
+<body>
+    <header>
+        <h1><a class="brand" href="index.html"><img src="logo.png" alt="أَوْج"><span>التوظيف</span></a></h1>
+        <nav>
+            <a href="index.html">المرشحون</a>
+            <a href="schedule.html">المقابلات</a>
+            <a href="jobs.html">الوظائف</a>
+        </nav>
+    </header>
+
+    <main>
+        <a class="back" href="index.html">‹ العودة للمرشحين</a>
+        <h2>إضافة مرشح</h2>
+        <p class="subtitle">نسبة التطابق تتحسب تلقائياً من المهارات المطلوبة للوظيفة:</p>
+        <div class="tags-row required-row" id="required"></div>
+
+        <section class="panel upload">
+            <h3>رفع سيرة ذاتية</h3>
+            <p class="muted">ارفعي ملف PDF أو TXT وراح نعبّي النموذج تحت تلقائياً. راجعي المعلومات قبل الإضافة.</p>
+            <input type="file" id="cv-file" accept=".pdf,.txt">
+            <p class="muted" id="cv-msg" role="status"></p>
+        </section>
+
+        <form class="panel form" id="candidate-form" novalidate>
+            <label class="field">
+                <span>الاسم</span>
+                <input id="f-name" maxlength="60" autocomplete="off">
+            </label>
+
+            <label class="field">
+                <span>سنوات الخبرة</span>
+                <input id="f-years" type="number" min="0" max="50" value="0">
+            </label>
+
+            <label class="field">
+                <span>المهارات (افصلي بينها بفاصلة)</span>
+                <input id="f-skills" maxlength="300" autocomplete="off">
+            </label>
+
+            <label class="field">
+                <span>آخر شركة (اختياري)</span>
+                <input id="f-company" maxlength="60" autocomplete="off">
+            </label>
+
+            <label class="field">
+                <span>المسمى الوظيفي فيها (اختياري)</span>
+                <input id="f-role" maxlength="60" autocomplete="off">
+            </label>
+
+            <label class="field">
+                <span>المدة (اختياري)</span>
+                <input id="f-period" maxlength="40" autocomplete="off">
+            </label>
+
+            <label class="field">
+                <span>التعليم (اختياري)</span>
+                <input id="f-edu" maxlength="80" autocomplete="off">
+            </label>
+
+            <p class="error" id="form-error" role="alert"></p>
+            <p class="muted" id="form-msg"></p>
+
+            <div>
+                <button class="btn primary" type="submit">إضافة المرشح</button>
+            </div>
+        </form>
+
+        <section class="panel" id="added"></section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="schedule-store.js"></script>
+    <script src="cv-reader.js"></script>
+    <script src="add.js"></script>
+</body>
+</html>

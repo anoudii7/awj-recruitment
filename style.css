@@ -1,0 +1,648 @@
+/* ===== الألوان (نغيرها من هنا فتتغير بكل الموقع) ===== */
+:root {
+    --bg: #faf8f2;
+    --INK: #1f2a1f;
+    --PRIMARY: #3A6B4F;
+    --TINT: #E9E2D0;
+    --border: #E3dcc8;
+    --muted: #556055;
+    --line: #7D8A73;
+    --card: #ffffff;
+    --on-primary: #ffffff;
+    --tag-ink: #2C5239;
+    --warn-bg: #FBEFD5;
+    --warn-ink: #7A4B00;
+    --slot-border: #CFC4A3;
+    --danger: #9B2C2C;
+}
+
+/* ===== الوضع الداكن ===== */
+[data-theme="dark"] {
+    --bg: #121a14;
+    --INK: #e8efe6;
+    --PRIMARY: #6fb58a;
+    --TINT: #243127;
+    --border: #2f3d32;
+    --muted: #a3b0a2;
+    --line: #5f7160;
+    --card: #1a251d;
+    --on-primary: #0f1a12;
+    --tag-ink: #bfe0c9;
+    --warn-bg: #3a2f14;
+    --warn-ink: #f0cf8a;
+    --slot-border: #4a5a4c;
+    --danger: #ff9a9a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--INK);
+}
+
+/* ===== الرأس ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 56px 10px;
+    border-bottom: 3px solid var(--PRIMARY);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+    color: var(--PRIMARY);
+}
+
+/* ===== الشعار ===== */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.brand img {
+    height: 56px;
+    width: auto;
+    display: block;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    color: var(--INK);
+    text-decoration: none;
+    font-size: 17px;
+}
+
+nav a:hover {
+    color: var(--PRIMARY);
+}
+
+/* ===== المحتوى الرئيسي ===== */
+main {
+    padding: 32px 56px;
+}
+
+main h2 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 17px;
+    margin: 8px 0 24px;
+}
+
+/* ===== أزرار التصفية ===== */
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.chip {
+    font: inherit;
+    font-size: 16px;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--INK);
+    cursor: pointer;
+}
+
+.chip.active {
+    background: var(--PRIMARY);
+    border-color: var(--PRIMARY);
+    color: var(--on-primary);
+}
+
+/* ===== قائمة المرشحين والبطاقة ===== */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 22px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: var(--PRIMARY);
+}
+
+.rank {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--TINT);
+    border: 2px solid var(--PRIMARY);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.info {
+    width: 180px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.info span {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* ===== شريط التطابق ===== */
+.match {
+    flex: 1;
+    min-width: 180px;
+}
+
+.match span {
+    font-size: 15px;
+}
+
+.bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--TINT);
+    margin-top: 6px;
+}
+
+.bar-fill {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--PRIMARY);
+}
+
+/* ===== الوسوم والحالة والزر ===== */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.tag {
+    background: var(--TINT);
+    color: var(--tag-ink);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+
+.tag.warn {
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+}
+
+.status {
+    width: 160px;
+    flex-shrink: 0;
+    font-size: 15px;
+    color: var(--muted);
+}
+
+.btn {
+    font: inherit;
+    font-size: 16px;
+    min-height: 44px;
+    padding: 0 20px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--INK);
+    cursor: pointer;
+}
+
+/* منع انكسار النص داخل هذي العناصر */
+.tag,
+.btn,
+.status,
+.match span {
+    white-space: nowrap;
+}
+
+/* ===== رسالة عدم وجود نتائج ===== */
+.empty {
+    color: var(--muted);
+    font-size: 17px;
+    padding: 24px 0;
+}
+
+/* ===== بطاقات الإحصائيات ===== */
+.stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 22px;
+}
+
+.stat-num {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--PRIMARY);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* ===== حركة ظهور البطاقات ===== */
+@keyframes card-in {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: card-in 0.5s ease backwards;
+}
+
+/* ===== الزر بشكل رابط ===== */
+a.btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* ===== صفحة المقابلة ===== */
+.back {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--PRIMARY);
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+.panel h3 {
+    margin: 0 0 4px;
+    font-size: 22px;
+}
+
+.panel h4 {
+    margin: 20px 0 8px;
+    font-size: 17px;
+}
+
+.panel p,
+.panel li {
+    font-size: 16px;
+}
+
+.panel ul {
+    margin: 0;
+    padding-inline-start: 20px;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.panel-cv {
+    flex: 0 0 380px;
+}
+
+.panel-questions {
+    flex: 1 1 400px;
+}
+
+.q {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.q input {
+    margin-top: 7px;
+    accent-color: var(--PRIMARY);
+}
+
+.panel-notes {
+    margin-top: 24px;
+}
+
+.notes {
+    display: block;
+    width: 100%;
+    font: inherit;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--INK);
+    resize: vertical;
+}
+
+.rating-row,
+.save-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+/* ===== جدول المقابلات ===== */
+.schedule-wrap {
+    overflow-x: auto;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 90px repeat(5, minmax(130px, 1fr));
+    gap: 8px;
+    align-items: center;
+    min-width: 760px;
+}
+
+.slot {
+    font: inherit;
+    font-size: 15px;
+    min-height: 56px;
+    padding: 0 8px;
+    border-radius: 10px;
+    border: 1px dashed var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.slot.filled {
+    background: var(--TINT);
+    border: 1px solid var(--slot-border);
+    color: var(--tag-ink);
+}
+
+.btn.primary {
+    background: var(--PRIMARY);
+    border-color: var(--PRIMARY);
+    color: var(--on-primary);
+}
+
+/* ===== نموذج إضافة مرشح ===== */
+.filters .add-link {
+    margin-inline-start: auto;
+}
+
+.required-row {
+    margin-bottom: 24px;
+}
+
+.form {
+    display: grid;
+    gap: 16px;
+    max-width: 640px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+}
+
+.field input {
+    font: inherit;
+    font-size: 16px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--INK);
+}
+
+.error {
+    margin: 0;
+    min-height: 1.4em;
+    color: var(--danger);
+}
+
+#form-msg {
+    margin: 0;
+}
+
+.upload {
+    max-width: 640px;
+    margin-bottom: 24px;
+}
+
+.panel + .panel {
+    margin-top: 24px;
+}
+
+#added {
+    max-width: 640px;
+}
+
+.added-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+}
+
+/* ===== انتقال سلس بين الصفحات (يشتغل بمتصفحات كروم الحديثة) ===== */
+@view-transition {
+    navigation: auto;
+}
+
+/* ===== زر الوضع الداكن ===== */
+.theme-btn {
+    font: inherit;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--INK);
+    cursor: pointer;
+}
+
+[data-theme="dark"] .brand img {
+    background: #faf8f2;
+    border-radius: 10px;
+    padding: 4px 8px;
+}
+
+/* ===== البحث والترتيب ===== */
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search,
+.sort {
+    font: inherit;
+    font-size: 16px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--INK);
+}
+
+.search { flex: 1 1 220px; max-width: 360px; }
+
+.sort-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* ===== صفحة الوظائف ===== */
+.jobs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.jobs .panel + .panel { margin-top: 0; }
+
+.job-badge {
+    display: inline-block;
+    padding: 2px 12px;
+    margin-bottom: 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.job-badge.open {
+    background: var(--PRIMARY);
+    border-color: var(--PRIMARY);
+    color: var(--on-primary);
+}
+
+.job .btn { margin-top: 8px; }
+
+/* ===== الجوال والشاشات الصغيرة ===== */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 20px 10px;
+    }
+
+    .brand img { height: 44px; }
+
+    nav { gap: 20px; }
+    nav a { font-size: 16px; }
+
+    main { padding: 24px 20px; }
+    main h2 { font-size: 26px; }
+
+    .stats { gap: 8px; flex-wrap: wrap; }
+    .stat { padding: 12px; flex: 1 1 40%; }
+    .stat-num { font-size: 26px; }
+    .stat-label { font-size: 13px; }
+
+    .filters { flex-wrap: wrap; }
+    .filters .add-link { margin-inline-start: 0; }
+
+    /* البطاقة: كل شي تحت بعض بعرض كامل */
+    .card { gap: 14px; padding: 16px; }
+    .info { width: calc(100% - 64px); }
+    .match { flex-basis: 100%; }
+    .tags { width: 100%; }
+    .status { width: 100%; }
+    .card .btn { width: 100%; justify-content: center; }
+
+    .panel { padding: 16px; }
+    .panel-cv { flex: 1 1 100%; }
+    .panel-questions { flex: 1 1 100%; }
+}
+
+/* ===== لازم يكون آخر الملف: احترام من تفضل تقليل الحركة ===== */
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+        animation: none;
+    }
+    .card:hover {
+        transform: none;
+    }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none;
+    }
+}
