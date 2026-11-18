@@ -62,7 +62,7 @@ function validate(name, yearsText, skills, company, role) {
 }
 
 // 1) لما تضغطين "إضافة المرشح"
-form.addEventListener("submit", event => {
+form.addEventListener("submit", async event => {
   event.preventDefault(); // نمنع المتصفح يحدّث الصفحة
   errorBox.textContent = "";
   msgBox.textContent = "";
@@ -79,7 +79,14 @@ form.addEventListener("submit", event => {
     return;
   }
 
-  const { match, missing } = analyze(skills);
+  // لو التحليل الذكي شغال نستخدمه، وإلا (أو لو فشل) الحساب العادي
+  let semantic = null;
+  if (aiReady) {
+    msgBox.textContent = "جاري التحليل الذكي...";
+    semantic = await semanticAnalyze(skills, cvLines);
+  }
+
+  const { match, missing } = semantic || analyze(skills);
   const newId = Math.max(0, ...candidates.map(c => c.id)) + 1;
 
   const candidate = {
@@ -106,6 +113,17 @@ form.addEventListener("submit", event => {
   candidates.push(candidate);
   form.reset();
   msgBox.textContent = `تمت إضافة ${name}، نسبة التطابق ${match}٪.`;
+
+  // نوضح وش الشي اللي اعتبره النموذج مطابق، عشان تحكمين بنفسك
+  if (semantic) {
+    const notes = semantic.pairs
+      .filter(p => p.score < 1)
+      .map(p => `${p.required} ≈ ${p.found} (${Math.round(p.score * 100)}٪)`);
+    if (notes.length) {
+      msgBox.textContent += " مطابقات بالمعنى: " + notes.join("، ");
+    }
+  }
+  cvLines = [];
   renderAdded();
 });
 
@@ -160,6 +178,7 @@ addedBox.addEventListener("click", event => {
 renderAdded();
 
 // 3) رفع السيرة: نقرأها ونعبّي النموذج
+let cvLines = []; // سطور آخر سيرة انرفعت (للتحليل الذكي)
 const cvInput = document.getElementById("cv-file");
 const cvMsg = document.getElementById("cv-msg");
 
@@ -172,6 +191,7 @@ cvInput.addEventListener("change", async () => {
   try {
     const text = await extractText(file);
     const cv = parseCv(text);
+    cvLines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
 
     // نحط القيم بـ .value (آمن: ما يتنفذ منها كود)
     document.getElementById("f-name").value = cv.name;
@@ -189,4 +209,24 @@ cvInput.addEventListener("change", async () => {
   }
 
   cvInput.value = ""; // نفضّي الخانة عشان تقدرين ترفعين نفس الملف مرة ثانية
+});
+
+// 4) زر تفعيل التحليل الذكي
+const aiBtn = document.getElementById("ai-btn");
+const aiMsg = document.getElementById("ai-msg");
+
+aiBtn.addEventListener("click", async () => {
+  aiBtn.disabled = true;
+  aiMsg.textContent = "جاري تحميل النموذج...";
+
+  try {
+    await loadModel(percent => {
+      aiMsg.textContent = `جاري تحميل النموذج... ${percent}٪`;
+    });
+    aiMsg.textContent = "التحليل الذكي شغّال. من الحين المرشحين الجدد يتحسب تطابقهم بالمعنى.";
+    aiBtn.textContent = "التحليل الذكي مفعّل";
+  } catch (error) {
+    aiMsg.textContent = "ما قدرنا نحمّل النموذج (تأكدي من الإنترنت). الموقع يكمل بالحساب العادي.";
+    aiBtn.disabled = false;
+  }
 });
